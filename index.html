@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Langeo Store - Hosting Minecraft Murah</title>
+
+<style>
+/* Reset dasar untuk memastikan ukuran elemen konsisten */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(180deg, #1e1e1e, #2b2b2b);
+  color: #fff;
+}
+
+header {
+  background: #111;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  color: #00ff99;
+}
+
+header p { color: #ccc; }
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 30px;
+}
+
+.packages {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,.5);
+  text-align: center;
+}
+
+.card h2 { color: #00ff99; }
+
+.card ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.card ul li {
+  padding: 8px 0;
+  border-bottom: 1px solid #333;
+}
+
+.price {
+  color: #ffcc00;
+  font-size: 22px;
+  margin: 15px 0;
+  font-weight: bold;
+}
+
+/* Tombol Utama */
+.btn {
+  display: inline-block;
+  background: #00ff99;
+  color: #000;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.3s;
+  border: none;
+}
+
+.btn:hover {
+  background: #00cc77;
+  transform: translateY(-2px);
+}
+
+/* INFO */
+.info {
+  margin-top: 40px;
+  background: #151515;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.info h3 { color: #00ff99; }
+
+/* PERBAIKAN MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 20px;
+}
+
+.modal-content {
+  background: #1a1a1a;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  width: 100%;
+  max-width: 340px; /* Lebar ideal modal */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  border: 1px solid #333;
+}
+
+.modal-content h3 {
+  color: #00ff99;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+/* Tombol di dalam modal dibuat penuh dan berjarak */
+.modal-content .btn {
+  display: block; /* Membuat tombol memenuhi lebar modal */
+  width: 100%;
+  margin: 12px 0;
+  text-align: center;
+}
+
+.close {
+  display: inline-block;
+  color: #aaa;
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.close:hover {
+  color: #ff4444;
+  text-decoration: underline;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  background: #111;
+  margin-top: 40px;
+  color: #aaa;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>LANGEO STORE</h1>
+  <p>Hosting Minecraft Java & Bedrock Murah</p>
+</header>
+
+<div class="container">
+  <div class="packages">
+
+    <div class="card">
+      <h2>PAKET VIP</h2>
+      <ul>
+        <li>RAM : 4 GB</li>
+        <li>CPU : 200%</li>
+        <li>DISK : 10 GB</li>
+      </ul>
+      <div class="price">Rp 10.000</div>
+      <a class="btn" onclick="openModal('VIP','10K')">Beli Sekarang</a>
+    </div>
+
+    <div class="card">
+      <h2>PAKET MVP</h2>
+      <ul>
+        <li>RAM : 8 GB</li>
+        <li>CPU : 400%</li>
+        <li>DISK : 20 GB</li>
+      </ul>
+      <div class="price">Rp 20.000</div>
+      <a class="btn" onclick="openModal('MVP','20K')">Beli Sekarang</a>
+    </div>
+
+    <div class="card">
+      <h2>PAKET LEGEND</h2>
+      <ul>
+        <li>RAM : 12 GB</li>
+        <li>CPU : 600%</li>
+        <li>DISK : 30 GB</li>
+      </ul>
+      <div class="price">Rp 30.000</div>
+      <a class="btn" onclick="openModal('LEGEND','30K')">Beli Sekarang</a>
+    </div>
+
+    <div class="card">
+      <h2>PAKET MYTHIC</h2>
+      <ul>
+        <li>RAM : 16 GB</li>
+        <li>CPU : 800%</li>
+        <li>DISK : 40 GB</li>
+      </ul>
+      <div class="price">Rp 40.000</div>
+      <a class="btn" onclick="openModal('MYTHIC','40K')">Beli Sekarang</a>
+    </div>
+
+  </div>
+
+  <div class="info">
+    <h3>INFORMATION</h3>
+    <ul>
+      <li>ANTI DDOS</li>
+      <li>ON 24 JAM</li>
+      <li>ANTI DOWN 98%</li>
+      <li>AKTIF 1 BULAN</li>
+      <li>GARANSI 26 HARI</li>
+      <li>REGIONAL SINGAPORE</li>
+      <li>FREE IP SUBDOMAIN</li>
+      <li>PROSES 24 JAM</li>
+      <li>JAVA MINIMAL PAKET MVP</li>
+      <li>Hosting Shared</li>
+      <li>Prosesor AMD EPYC</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Langeo Store | Hosting Minecraft Java & Bedrock </p>
+</footer>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h3>Pilih Minecraft</h3>
+    <a class="btn" id="javaBtn">Minecraft Java</a>
+    <a class="btn" id="bedrockBtn">Minecraft Bedrock</a>
+    <div class="close" onclick="closeModal()">Tutup</div>
+  </div>
+</div>
+
+<script>
+const wa = "6285189826843";
+
+function openModal(paket, harga) {
+  document.getElementById("modal").style.display = "flex";
+  const t = new Date().toISOString().slice(0, 10);
+
+  const javaText = 
+    `*Mau Beli Hosting Bang*\n` +
+    `Paket: ${paket}\n` +
+    `Harga: ${harga}\n` +
+    `Tipe: Java\n` +
+    `Tanggal: ${t}`;
+
+  const bedrockText = 
+    `*Mau Beli Hosting Bang*\n` +
+    `Paket: ${paket}\n` +
+    `Harga: ${harga}\n` +
+    `Tipe: Bedrock\n` +
+    `Tanggal: ${t}`;
+
+  document.getElementById("javaBtn").href = "https://wa.me/" + wa + "?text=" + encodeURIComponent(javaText);
+  document.getElementById("bedrockBtn").href = "https://wa.me/" + wa + "?text=" + encodeURIComponent(bedrockText);
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+// Menutup modal jika user klik di area luar kotak modal
+window.onclick = function(event) {
+  const modal = document.getElementById("modal");
+  if (event.target == modal) {
+    closeModal();
+  }
+}
+</script>
+
+</body>
+</html>
