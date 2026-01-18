@@ -3,13 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Langeo Store - Hosting Minecraft Java & Bedrock Murah Stabil</title>
+<title>Langeo Store - Hosting Minecraft Java & Bedrock</title>
 
 <style>
 /* Reset & Base Styles */
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -21,170 +19,78 @@ body {
 
 header {
   background: rgba(17, 17, 17, 0.9);
-  padding: 40px 20px;
+  padding: 30px 20px;
   text-align: center;
   border-bottom: 2px solid #00ff99;
 }
 
-header h1 {
-  margin: 0;
+header h1 { margin: 0; color: #00ff99; font-size: 2.2rem; text-transform: uppercase; }
+
+/* Selector Bahasa */
+.lang-selector {
+  margin-top: 15px;
+}
+.lang-selector select {
+  background: #1a1a1a;
   color: #00ff99;
-  font-size: 2.5rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  border: 1px solid #00ff99;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
-header p { color: #ccc; margin-top: 10px; }
+.container { max-width: 1100px; margin: auto; padding: 30px 15px; }
 
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 30px 15px;
-}
-
-/* Grid System */
 .packages {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 25px;
 }
 
-/* Card Styling */
 .card {
   background: #1a1a1a;
   padding: 25px;
   border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
   text-align: center;
   border: 1px solid #333;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  transition: 0.3s;
   display: flex;
   flex-direction: column;
 }
 
-.card:hover {
-  transform: translateY(-10px);
-  border-color: #00ff99;
-}
+.card:hover { transform: translateY(-10px); border-color: #00ff99; }
+.card h2 { color: #00ff99; margin-bottom: 15px; }
+.card ul { list-style: none; padding: 0; text-align: left; flex-grow: 1; }
+.card ul li { padding: 8px 0; border-bottom: 1px solid #2a2a2a; font-size: 0.9rem; }
 
-.card h2 { 
-  color: #00ff99; 
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-}
+.price-container { margin: 20px 0; }
+.price { color: #ffcc00; font-size: 26px; font-weight: bold; display: block; }
+.per-month { color: #aaa; font-size: 14px; display: block; }
 
-.card ul {
-  list-style: none;
-  padding: 0;
-  text-align: left;
-  margin-bottom: 20px;
-  flex-grow: 1; /* Memastikan list memenuhi ruang agar tombol sejajar */
-}
-
-.card ul li {
-  padding: 10px 0;
-  border-bottom: 1px solid #2a2a2a;
-  font-size: 0.95rem;
-  color: #ddd;
-}
-
-.card ul li:last-child { border-bottom: none; }
-
-/* Bagian Harga Baru */
-.price-container {
-  margin: 20px 0;
-}
-
-.price {
-  color: #ffcc00;
-  font-size: 28px;
-  font-weight: bold;
-  text-shadow: 0 0 10px rgba(255, 204, 0, 0.2);
-  display: block;
-}
-
-.per-month {
-  color: #aaa;
-  font-size: 14px;
-  display: block;
-  margin-top: -5px;
-}
-
-/* Tombol Utama */
 .btn {
   display: inline-block;
   background: #00ff99;
   color: #000;
-  padding: 14px 25px;
+  padding: 12px;
   border-radius: 10px;
   font-weight: bold;
   text-decoration: none;
   cursor: pointer;
-  transition: 0.3s;
   border: none;
   width: 100%;
 }
 
-.btn:hover {
-  background: #05d682;
-  box-shadow: 0 0 15px rgba(0, 255, 153, 0.4);
-}
+.btn:hover { background: #05d682; }
 
-/* Info Section */
-.info {
-  margin-top: 50px;
-  background: #151515;
-  padding: 30px;
-  border-radius: 15px;
-  border-left: 5px solid #00ff99;
-}
+.info { margin-top: 50px; background: #151515; padding: 30px; border-radius: 15px; border-left: 5px solid #00ff99; }
+.info h3 { color: #00ff99; margin-bottom: 15px; }
+.info ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; list-style: none; padding: 0; }
 
-.info h3 { color: #00ff99; margin-top: 0; }
+.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 999; }
+.modal-content { background: #1e1e1e; padding: 30px; border-radius: 20px; text-align: center; width: 350px; border: 1px solid #333; }
 
-.info ul {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 10px;
-  padding: 0;
-  list-style: none;
-}
-
-/* Modal */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.9);
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  padding: 20px;
-}
-
-.modal-content {
-  background: #1e1e1e;
-  padding: 35px;
-  border-radius: 20px;
-  text-align: center;
-  width: 100%;
-  max-width: 380px;
-  border: 1px solid #333;
-}
-
-.close {
-  display: inline-block;
-  color: #888;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
-footer {
-  text-align: center;
-  padding: 30px;
-  background: #0a0a0a;
-  margin-top: 60px;
-  color: #777;
-}
+footer { text-align: center; padding: 30px; background: #0a0a0a; margin-top: 50px; color: #777; }
 </style>
 </head>
 
@@ -192,162 +98,225 @@ footer {
 
 <header>
   <h1>LANGEO STORE</h1>
-  <p>Solusi Hosting Minecraft Performa Tinggi & Anti-DDoS</p>
+  <p id="tagline">Solusi Hosting Minecraft Performa Tinggi & Anti-DDoS</p>
+  
+  <div class="lang-selector">
+    <select id="langSelect" onchange="changeLanguage()">
+      <option value="id">🇮🇩 Indonesia</option>
+      <option value="en">🇺🇸 English</option>
+      <option value="my">🇲🇾 Malaysia</option>
+    </select>
+  </div>
 </header>
 
 <div class="container">
   <div class="packages">
 
     <div class="card">
-      <h2>PAKET VIP</h2>
+      <h2 class="p-name">PAKET VIP</h2>
       <ul>
         <li>RAM : 4 GB</li>
         <li>CPU : 200%</li>
         <li>DISK : 10 GB</li>
-        <li>SLOT MASIH BANYAK</li>
+        <li class="stock-banyak">SLOT MASIH BANYAK</li>
       </ul>
       <div class="price-container">
         <span class="price">Rp 10.000</span>
         <span class="per-month">/ Per Bulan</span>
       </div>
-      <button class="btn" onclick="openModal('VIP','10K')">Beli Sekarang</button>
+      <button class="btn buy-btn" onclick="openModal('VIP','10K')">Beli Sekarang</button>
     </div>
 
     <div class="card">
-      <h2>PAKET MVP</h2>
+      <h2 class="p-name">PAKET MVP</h2>
       <ul>
         <li>RAM : 8 GB</li>
         <li>CPU : 400%</li>
         <li>DISK : 20 GB</li>
-        <li>SLOT MASIH BANYAK</li>
+        <li class="stock-banyak">SLOT MASIH BANYAK</li>
       </ul>
       <div class="price-container">
         <span class="price">Rp 20.000</span>
         <span class="per-month">/ Per Bulan</span>
       </div>
-      <button class="btn" onclick="openModal('MVP','20K')">Beli Sekarang</button>
+      <button class="btn buy-btn" onclick="openModal('MVP','20K')">Beli Sekarang</button>
     </div>
 
     <div class="card">
-      <h2>PAKET ELITE</h2>
+      <h2 class="p-name">PAKET ELITE</h2>
       <ul>
         <li>RAM : 12 GB</li>
         <li>CPU : 600%</li>
         <li>DISK : 30 GB</li>
-        <li>SLOT MASIH BANYAK</li>
+        <li class="stock-banyak">SLOT MASIH BANYAK</li>
       </ul>
       <div class="price-container">
         <span class="price">Rp 30.000</span>
         <span class="per-month">/ Per Bulan</span>
       </div>
-      <button class="btn" onclick="openModal('ELITE','30K')">Beli Sekarang</button>
+      <button class="btn buy-btn" onclick="openModal('ELITE','30K')">Beli Sekarang</button>
     </div>
 
     <div class="card">
-      <h2>PAKET MASTER</h2>
+      <h2 class="p-name">PAKET MASTER</h2>
       <ul>
         <li>RAM : 16 GB</li>
         <li>CPU : 800%</li>
         <li>DISK : 40 GB</li>
-        <li>SLOT MASIH BANYAK</li>
+        <li class="stock-banyak">SLOT MASIH BANYAK</li>
       </ul>
       <div class="price-container">
         <span class="price">Rp 40.000</span>
         <span class="per-month">/ Per Bulan</span>
       </div>
-      <button class="btn" onclick="openModal('MASTER','40K')">Beli Sekarang</button>
+      <button class="btn buy-btn" onclick="openModal('MASTER','40K')">Beli Sekarang</button>
     </div>
 
     <div class="card">
-      <h2>PAKET LEGEND</h2>
+      <h2 class="p-name">PAKET LEGEND</h2>
       <ul>
         <li>RAM : 24 GB</li>
         <li>CPU : 1000%</li>
         <li>DISK : 50 GB</li>
-        <li>SLOT TERBATAS</li>
+        <li class="stock-terbatas">SLOT TERBATAS</li>
       </ul>
       <div class="price-container">
         <span class="price">Rp 50.000</span>
         <span class="per-month">/ Per Bulan</span>
       </div>
-      <button class="btn" onclick="openModal('LEGEND','50K')">Beli Sekarang</button>
+      <button class="btn buy-btn" onclick="openModal('LEGEND','50K')">Beli Sekarang</button>
     </div>
 
     <div class="card">
-        <h2>PAKET MYTHIC</h2>
-        <ul>
-          <li>RAM : 32 GB</li>
-          <li>CPU : 1200%</li>
-          <li>DISK : 60 GB</li>
-          <li>SLOT TERBATAS</li>
+      <h2 class="p-name">PAKET MYTHIC</h2>
+      <ul>
+        <li>RAM : 32 GB</li>
+        <li>CPU : 1200%</li>
+        <li>DISK : 60 GB</li>
+        <li class="stock-terbatas">SLOT TERBATAS</li>
       </ul>
       <div class="price-container">
         <span class="price">Rp 60.000</span>
         <span class="per-month">/ Per Bulan</span>
       </div>
-      <button class="btn" onclick="openModal('MYTHIC','60K')">Beli Sekarang</button>
+      <button class="btn buy-btn" onclick="openModal('MYTHIC','60K')">Beli Sekarang</button>
     </div>
 
   </div>
 
   <div class="info">
-    <h3>MENGAPA MEMILIH KAMI?</h3>
-    <ul>
-      <li>✔ ANTI DDOS PROTECTION</li>
-      <li>✔ UPTIME 24 JAM</li>
-      <li>✔ SERVER STABIL 98%</li>
-      <li>✔ DURASI 1 BULAN</li>
-      <li>✔ GARANSI 26 HARI</li>
-      <li>✔ REGIONAL SINGAPORE</li>
-      <li>✔ FREE IP SUBDOMAIN</li>
-      <li>✔ PROSES CEPAT</li>
-      <li>✔ MINIMAL MVP UNTUK JAVA</li>
-      <li>✔ HOSTING SHARED</li>
-      <li>✔ CPU AMD EPYC</li>
-      <li>✔ SUPPORT TERBAIK</li>
-    </ul>
+    <h3 id="info-title">MENGAPA MEMILIH KAMI?</h3>
+    <ul id="info-list">
+      </ul>
   </div>
 </div>
 
-<footer>
-  <p>© 2026 Langeo Store | Hosting Minecraft Java & Bedrock </p>
+<footer id="footer-text">
+  © 2026 Langeo Store | Hosting Minecraft Java & Bedrock
 </footer>
 
 <div class="modal" id="modal">
   <div class="modal-content">
-    <h3>Pilih Versi Game</h3>
+    <h3 id="modal-title">Pilih Versi Game</h3>
     <p id="selectedPaket" style="color: #00ff99; font-weight: bold; margin-bottom: 20px;">Paket: -</p>
     <a class="btn" id="javaBtn" style="margin-bottom: 10px; display: block;">Minecraft Java</a>
     <a class="btn" id="bedrockBtn" style="display: block;">Minecraft Bedrock</a>
-    <div class="close" onclick="closeModal()">Kembali</div>
+    <div class="close" onclick="closeModal()" style="margin-top:15px; cursor:pointer; color:#888" id="back-text">Kembali</div>
   </div>
 </div>
 
 <script>
 const wa = "6285189826843";
 
+const dictionary = {
+  id: {
+    tagline: "Solusi Hosting Minecraft Performa Tinggi & Anti-DDoS",
+    buy: "Beli Sekarang",
+    perMonth: "/ Per Bulan",
+    stockMany: "SLOT MASIH BANYAK",
+    stockLimit: "SLOT TERBATAS",
+    infoTitle: "MENGAPA MEMILIH KAMI?",
+    infoItems: ["ANTI DDOS PROTECTION", "UPTIME 24 JAM", "SERVER STABIL 98%", "DURASI 1 BULAN", "GARANSI 26 HARI", "REGIONAL SINGAPORE", "FREE IP SUBDOMAIN", "PROSES CEPAT", "MINIMAL MVP UNTUK JAVA", "HOSTING SHARED", "CPU AMD EPYC", "SUPPORT TERBAIK"],
+    modalTitle: "Pilih Versi Game",
+    back: "Kembali",
+    waMsg: "*Mau Beli Hosting Bang*"
+  },
+  en: {
+    tagline: "High-Performance Minecraft Hosting & Anti-DDoS Solutions",
+    buy: "Buy Now",
+    perMonth: "/ Per Month",
+    stockMany: "MANY SLOTS AVAILABLE",
+    stockLimit: "LIMITED SLOTS",
+    infoTitle: "WHY CHOOSE US?",
+    infoItems: ["ANTI DDOS PROTECTION", "24H UPTIME", "STABLE SERVER 98%", "1 MONTH DURATION", "26 DAYS WARRANTY", "SINGAPORE REGION", "FREE IP SUBDOMAIN", "FAST PROCESS", "MINIMUM MVP FOR JAVA", "SHARED HOSTING", "AMD EPYC CPU", "BEST SUPPORT"],
+    modalTitle: "Choose Game Version",
+    back: "Back",
+    waMsg: "*I want to buy hosting*"
+  },
+  my: {
+    tagline: "Penyelesaian Pengehosan Minecraft Berprestasi Tinggi & Anti-DDoS",
+    buy: "Beli Sekarang",
+    perMonth: "/ Sebulan",
+    stockMany: "SLOT MASIH BANYAK",
+    stockLimit: "SLOT TERHAD",
+    infoTitle: "KENAPA PILIH KAMI?",
+    infoItems: ["PERLINDUNGAN ANTI DDOS", "MASA AKTIF 24 JAM", "SERVER STABIL 98%", "TEMPOH 1 BULAN", "WARANTI 26 HARI", "WILAYAH SINGAPURA", "SUBDOMAIN IP PERCUMA", "PROSES CEPAT", "MINIMUM MVP UNTUK JAVA", "PENGEHOSAN KONGSI", "CPU AMD EPYC", "SOKONGAN TERBAIK"],
+    modalTitle: "Pilih Versi Game",
+    back: "Kembali",
+    waMsg: "*Saya nak beli hosting bang*"
+  }
+};
+
+function changeLanguage() {
+  const lang = document.getElementById("langSelect").value;
+  const d = dictionary[lang];
+
+  // Header & Footer
+  document.getElementById("tagline").innerText = d.tagline;
+  document.getElementById("info-title").innerText = d.infoTitle;
+  document.getElementById("modal-title").innerText = d.modalTitle;
+  document.getElementById("back-text").innerText = d.back;
+
+  // Cards
+  document.querySelectorAll(".buy-btn").forEach(btn => btn.innerText = d.buy);
+  document.querySelectorAll(".per-month").forEach(pm => pm.innerText = d.perMonth);
+  document.querySelectorAll(".stock-banyak").forEach(s => s.innerText = d.stockMany);
+  document.querySelectorAll(".stock-terbatas").forEach(s => s.innerText = d.stockLimit);
+
+  // Info List
+  const infoList = document.getElementById("info-list");
+  infoList.innerHTML = "";
+  d.infoItems.forEach(item => {
+    const li = document.createElement("li");
+    li.innerText = "✔ " + item;
+    infoList.appendChild(li);
+  });
+}
+
 function openModal(paket, harga) {
+  const lang = document.getElementById("langSelect").value;
+  const d = dictionary[lang];
+  
   document.getElementById("modal").style.display = "flex";
   document.getElementById("selectedPaket").innerText = "Paket: " + paket + " (" + harga + ")";
   
   const t = new Date().toLocaleDateString('id-ID');
-
-  const messageBase = `*Mau Beli Hosting Bang*\n\n📌 Paket: ${paket}\n💰 Harga: ${harga} / Bulan\n📅 Tanggal: ${t}`;
+  const messageBase = `${d.waMsg}\n\n📌 Paket: ${paket}\n💰 Harga: ${harga} ${d.perMonth}\n📅 Tarikh: ${t}`;
 
   document.getElementById("javaBtn").href = "https://wa.me/" + wa + "?text=" + encodeURIComponent(messageBase + "\n🎮 Tipe: Minecraft Java");
   document.getElementById("bedrockBtn").href = "https://wa.me/" + wa + "?text=" + encodeURIComponent(messageBase + "\n🎮 Tipe: Minecraft Bedrock");
 }
 
-function closeModal() {
-  document.getElementById("modal").style.display = "none";
-}
+function closeModal() { document.getElementById("modal").style.display = "none"; }
 
 window.onclick = function(event) {
-  if (event.target == document.getElementById("modal")) {
-    closeModal();
-  }
+  if (event.target == document.getElementById("modal")) closeModal();
 }
+
+// Jalankan bahasa Indonesia saat pertama kali load
+window.onload = changeLanguage;
 </script>
 
 </body>
 </html>
+
