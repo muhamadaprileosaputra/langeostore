@@ -6,69 +6,108 @@
 <title>Langeo Store - Hosting Minecraft Java & Bedrock Murah Stabil</title>
 
 <style>
-/* Reset dasar untuk memastikan ukuran elemen konsisten */
+/* Reset & Base Styles */
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: linear-gradient(180deg, #1e1e1e, #2b2b2b);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: radial-gradient(circle at top, #2b2b2b, #121212);
   color: #fff;
+  line-height: 1.6;
 }
 
 header {
-  background: #111;
-  padding: 20px;
+  background: rgba(17, 17, 17, 0.9);
+  padding: 40px 20px;
   text-align: center;
+  border-bottom: 2px solid #00ff99;
 }
 
 header h1 {
   margin: 0;
   color: #00ff99;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
-header p { color: #ccc; }
+header p { color: #ccc; margin-top: 10px; }
 
 .container {
   max-width: 1100px;
   margin: auto;
-  padding: 30px;
+  padding: 30px 15px;
 }
 
+/* Grid System */
 .packages {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
 }
 
+/* Card Styling */
 .card {
   background: #1a1a1a;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,.5);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
   text-align: center;
+  border: 1px solid #333;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
-.card h2 { color: #00ff99; }
+.card:hover {
+  transform: translateY(-10px);
+  border-color: #00ff99;
+}
+
+.card h2 { 
+  color: #00ff99; 
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
 
 .card ul {
   list-style: none;
   padding: 0;
   text-align: left;
+  margin-bottom: 20px;
+  flex-grow: 1; /* Memastikan list memenuhi ruang agar tombol sejajar */
 }
 
 .card ul li {
-  padding: 8px 0;
-  border-bottom: 1px solid #333;
+  padding: 10px 0;
+  border-bottom: 1px solid #2a2a2a;
+  font-size: 0.95rem;
+  color: #ddd;
+}
+
+.card ul li:last-child { border-bottom: none; }
+
+/* Bagian Harga Baru */
+.price-container {
+  margin: 20px 0;
 }
 
 .price {
   color: #ffcc00;
-  font-size: 22px;
-  margin: 15px 0;
+  font-size: 28px;
   font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 204, 0, 0.2);
+  display: block;
+}
+
+.per-month {
+  color: #aaa;
+  font-size: 14px;
+  display: block;
+  margin-top: -5px;
 }
 
 /* Tombol Utama */
@@ -76,36 +115,46 @@ header p { color: #ccc; }
   display: inline-block;
   background: #00ff99;
   color: #000;
-  padding: 12px 20px;
-  border-radius: 8px;
+  padding: 14px 25px;
+  border-radius: 10px;
   font-weight: bold;
   text-decoration: none;
   cursor: pointer;
   transition: 0.3s;
   border: none;
+  width: 100%;
 }
 
 .btn:hover {
-  background: #00cc77;
-  transform: translateY(-2px);
+  background: #05d682;
+  box-shadow: 0 0 15px rgba(0, 255, 153, 0.4);
 }
 
-/* INFO */
+/* Info Section */
 .info {
-  margin-top: 40px;
+  margin-top: 50px;
   background: #151515;
-  padding: 20px;
-  border-radius: 12px;
+  padding: 30px;
+  border-radius: 15px;
+  border-left: 5px solid #00ff99;
 }
 
-.info h3 { color: #00ff99; }
+.info h3 { color: #00ff99; margin-top: 0; }
 
-/* PERBAIKAN MODAL */
+.info ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  padding: 0;
+  list-style: none;
+}
+
+/* Modal */
 .modal {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.9);
   justify-content: center;
   align-items: center;
   z-index: 999;
@@ -113,50 +162,28 @@ header p { color: #ccc; }
 }
 
 .modal-content {
-  background: #1a1a1a;
-  padding: 30px;
-  border-radius: 15px;
+  background: #1e1e1e;
+  padding: 35px;
+  border-radius: 20px;
   text-align: center;
   width: 100%;
-  max-width: 340px; /* Lebar ideal modal */
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  max-width: 380px;
   border: 1px solid #333;
-}
-
-.modal-content h3 {
-  color: #00ff99;
-  margin-top: 0;
-  margin-bottom: 20px;
-}
-
-/* Tombol di dalam modal dibuat penuh dan berjarak */
-.modal-content .btn {
-  display: block; /* Membuat tombol memenuhi lebar modal */
-  width: 100%;
-  margin: 12px 0;
-  text-align: center;
 }
 
 .close {
   display: inline-block;
-  color: #aaa;
+  color: #888;
   cursor: pointer;
-  margin-top: 15px;
-  font-size: 14px;
-  transition: 0.3s;
-}
-
-.close:hover {
-  color: #ff4444;
-  text-decoration: underline;
+  margin-top: 20px;
 }
 
 footer {
   text-align: center;
-  padding: 15px;
-  background: #111;
-  margin-top: 40px;
-  color: #aaa;
+  padding: 30px;
+  background: #0a0a0a;
+  margin-top: 60px;
+  color: #777;
 }
 </style>
 </head>
@@ -165,7 +192,7 @@ footer {
 
 <header>
   <h1>LANGEO STORE</h1>
-  <p>Hosting Minecraft Java & Bedrock Murah Stabil </p>
+  <p>Solusi Hosting Minecraft Performa Tinggi & Anti-DDoS</p>
 </header>
 
 <div class="container">
@@ -177,10 +204,13 @@ footer {
         <li>RAM : 4 GB</li>
         <li>CPU : 200%</li>
         <li>DISK : 10 GB</li>
-        <li>SLOT MASIH BANYAK</li
+        <li>SLOT MASIH BANYAK</li>
       </ul>
-      <div class="price">Rp 10.000</div>
-      <a class="btn" onclick="openModal('VIP','10K')">Beli Sekarang</a>
+      <div class="price-container">
+        <span class="price">Rp 10.000</span>
+        <span class="per-month">/ Per Bulan</span>
+      </div>
+      <button class="btn" onclick="openModal('VIP','10K')">Beli Sekarang</button>
     </div>
 
     <div class="card">
@@ -189,10 +219,13 @@ footer {
         <li>RAM : 8 GB</li>
         <li>CPU : 400%</li>
         <li>DISK : 20 GB</li>
-        <li>SLOT MASIH BANYAK</li
+        <li>SLOT MASIH BANYAK</li>
       </ul>
-      <div class="price">Rp 20.000</div>
-      <a class="btn" onclick="openModal('MVP','20K')">Beli Sekarang</a>
+      <div class="price-container">
+        <span class="price">Rp 20.000</span>
+        <span class="per-month">/ Per Bulan</span>
+      </div>
+      <button class="btn" onclick="openModal('MVP','20K')">Beli Sekarang</button>
     </div>
 
     <div class="card">
@@ -201,12 +234,14 @@ footer {
         <li>RAM : 12 GB</li>
         <li>CPU : 600%</li>
         <li>DISK : 30 GB</li>
-        <li>SLOT MASIH BANYAK</li
+        <li>SLOT MASIH BANYAK</li>
       </ul>
-      <div class="price">Rp 30.000</div>
-      <a class="btn" onclick="openModal('ELITE','30K')">Beli Sekarang</a>
+      <div class="price-container">
+        <span class="price">Rp 30.000</span>
+        <span class="per-month">/ Per Bulan</span>
+      </div>
+      <button class="btn" onclick="openModal('ELITE','30K')">Beli Sekarang</button>
     </div>
-
 
     <div class="card">
       <h2>PAKET MASTER</h2>
@@ -216,8 +251,11 @@ footer {
         <li>DISK : 40 GB</li>
         <li>SLOT MASIH BANYAK</li>
       </ul>
-      <div class="price">Rp 40.000</div>
-      <a class="btn" onclick="openModal('MASTER','40K')">Beli Sekarang</a>
+      <div class="price-container">
+        <span class="price">Rp 40.000</span>
+        <span class="per-month">/ Per Bulan</span>
+      </div>
+      <button class="btn" onclick="openModal('MASTER','40K')">Beli Sekarang</button>
     </div>
 
     <div class="card">
@@ -228,8 +266,11 @@ footer {
         <li>DISK : 50 GB</li>
         <li>SLOT TERBATAS</li>
       </ul>
-      <div class="price">Rp 50.000</div>
-      <a class="btn" onclick="openModal('LEGEND','50K')">Beli Sekarang</a>
+      <div class="price-container">
+        <span class="price">Rp 50.000</span>
+        <span class="per-month">/ Per Bulan</span>
+      </div>
+      <button class="btn" onclick="openModal('LEGEND','50K')">Beli Sekarang</button>
     </div>
 
     <div class="card">
@@ -240,27 +281,30 @@ footer {
           <li>DISK : 60 GB</li>
           <li>SLOT TERBATAS</li>
       </ul>
-      <div class="price">Rp 60.000</div>
-      <a class="btn" onclick="openModal('MYTHIC','60K')">Beli Sekarang</a>
+      <div class="price-container">
+        <span class="price">Rp 60.000</span>
+        <span class="per-month">/ Per Bulan</span>
+      </div>
+      <button class="btn" onclick="openModal('MYTHIC','60K')">Beli Sekarang</button>
     </div>
 
   </div>
 
   <div class="info">
-    <h3>INFORMATION</h3>
+    <h3>MENGAPA MEMILIH KAMI?</h3>
     <ul>
-      <li>ANTI DDOS</li>
-      <li>ON 24 JAM</li>
-      <li>ANTI DOWN 98%</li>
-      <li>AKTIF 1 BULAN</li>
-      <li>GARANSI 26 HARI</li>
-      <li>REGIONAL SINGAPORE</li>
-      <li>FREE IP SUBDOMAIN</li>
-      <li>PROSES 24 JAM</li>
-      <li>JAVA MINIMAL PAKET MVP</li>
-      <li>HOSTING SHARED</li>
-      <li>PROSESOR AMD EPYC</li>
-      <li>SLOT TERBATAS PAKET LEGEND DAN MYTHIC</li>
+      <li>✔ ANTI DDOS PROTECTION</li>
+      <li>✔ UPTIME 24 JAM</li>
+      <li>✔ SERVER STABIL 98%</li>
+      <li>✔ DURASI 1 BULAN</li>
+      <li>✔ GARANSI 26 HARI</li>
+      <li>✔ REGIONAL SINGAPORE</li>
+      <li>✔ FREE IP SUBDOMAIN</li>
+      <li>✔ PROSES CEPAT</li>
+      <li>✔ MINIMAL MVP UNTUK JAVA</li>
+      <li>✔ HOSTING SHARED</li>
+      <li>✔ CPU AMD EPYC</li>
+      <li>✔ SUPPORT TERBAIK</li>
     </ul>
   </div>
 </div>
@@ -271,10 +315,11 @@ footer {
 
 <div class="modal" id="modal">
   <div class="modal-content">
-    <h3>Pilih Minecraft</h3>
-    <a class="btn" id="javaBtn">Minecraft Java</a>
-    <a class="btn" id="bedrockBtn">Minecraft Bedrock</a>
-    <div class="close" onclick="closeModal()">Tutup</div>
+    <h3>Pilih Versi Game</h3>
+    <p id="selectedPaket" style="color: #00ff99; font-weight: bold; margin-bottom: 20px;">Paket: -</p>
+    <a class="btn" id="javaBtn" style="margin-bottom: 10px; display: block;">Minecraft Java</a>
+    <a class="btn" id="bedrockBtn" style="display: block;">Minecraft Bedrock</a>
+    <div class="close" onclick="closeModal()">Kembali</div>
   </div>
 </div>
 
@@ -283,34 +328,22 @@ const wa = "6285189826843";
 
 function openModal(paket, harga) {
   document.getElementById("modal").style.display = "flex";
-  const t = new Date().toISOString().slice(0, 10);
+  document.getElementById("selectedPaket").innerText = "Paket: " + paket + " (" + harga + ")";
+  
+  const t = new Date().toLocaleDateString('id-ID');
 
-  const javaText = 
-    `*Mau Beli Hosting Bang*\n` +
-    `Paket: ${paket}\n` +
-    `Harga: ${harga}\n` +
-    `Tipe: Java\n` +
-    `Tanggal: ${t}`;
+  const messageBase = `*Mau Beli Hosting Bang*\n\n📌 Paket: ${paket}\n💰 Harga: ${harga} / Bulan\n📅 Tanggal: ${t}`;
 
-  const bedrockText = 
-    `*Mau Beli Hosting Bang*\n` +
-    `Paket: ${paket}\n` +
-    `Harga: ${harga}\n` +
-    `Tipe: Bedrock\n` +
-    `Tanggal: ${t}`;
-
-  document.getElementById("javaBtn").href = "https://wa.me/" + wa + "?text=" + encodeURIComponent(javaText);
-  document.getElementById("bedrockBtn").href = "https://wa.me/" + wa + "?text=" + encodeURIComponent(bedrockText);
+  document.getElementById("javaBtn").href = "https://wa.me/" + wa + "?text=" + encodeURIComponent(messageBase + "\n🎮 Tipe: Minecraft Java");
+  document.getElementById("bedrockBtn").href = "https://wa.me/" + wa + "?text=" + encodeURIComponent(messageBase + "\n🎮 Tipe: Minecraft Bedrock");
 }
 
 function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
 
-// Menutup modal jika user klik di area luar kotak modal
 window.onclick = function(event) {
-  const modal = document.getElementById("modal");
-  if (event.target == modal) {
+  if (event.target == document.getElementById("modal")) {
     closeModal();
   }
 }
@@ -318,4 +351,3 @@ window.onclick = function(event) {
 
 </body>
 </html>
-
