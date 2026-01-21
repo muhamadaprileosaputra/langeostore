@@ -301,7 +301,7 @@ function openModal(paket, harga) {
   document.getElementById("selectedPaket").innerText = "Paket: " + paket + " (" + harga + ")";
   
   const t = new Date().toLocaleDateString('id-ID');
-  const messageBase = `${d.waMsg}\n\n📌 Paket: ${paket}\n💰 Harga: ${harga} ${d.perMonth}\n📅 Tanggal: ${t}`;
+  const messageBase = `${d.waMsg}\n\n📌 Paket: ${paket}\n💰 Harga: ${harga} ${d.perMonth}\n📅 Tarikh: ${t}`;
 
   document.getElementById("javaBtn").href = "https://wa.me/" + wa + "?text=" + encodeURIComponent(messageBase + "\n🎮 Tipe: Minecraft Java");
   document.getElementById("bedrockBtn").href = "https://wa.me/" + wa + "?text=" + encodeURIComponent(messageBase + "\n🎮 Tipe: Minecraft Bedrock");
