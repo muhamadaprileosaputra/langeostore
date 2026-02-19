@@ -1,322 +1,635 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Langeo Store - Hosting Minecraft Java & Bedrock</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MC Hosting Premium - Java & Bedrock</title>
+    <!-- Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Rajdhani (Gaming look) & Inter (Readable text) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary: #00ff88; /* Minecraft Green */
+            --primary-dark: #00cc6a;
+            --accent: #00d2ff; /* Diamond Blue */
+            --bg-dark: #0a0b10;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --bg-card-hover: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --gradient: linear-gradient(135deg, #00ff88 0%, #00d2ff 100%);
+            --font-head: 'Rajdhani', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
 
-<style>
-/* Reset & Base Styles */
-* { box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
 
-body {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: radial-gradient(circle at top, #2b2b2b, #121212);
-  color: #fff;
-  line-height: 1.6;
-}
+        html {
+            scroll-behavior: smooth;
+        }
 
-header {
-  background: rgba(17, 17, 17, 0.9);
-  padding: 30px 20px;
-  text-align: center;
-  border-bottom: 2px solid #00ff99;
-}
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            /* Background Grid Pattern */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
 
-header h1 { margin: 0; color: #00ff99; font-size: 2.2rem; text-transform: uppercase; }
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-/* Selector Bahasa */
-.lang-selector {
-  margin-top: 15px;
-}
-.lang-selector select {
-  background: #1a1a1a;
-  color: #00ff99;
-  border: 1px solid #00ff99;
-  padding: 6px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-}
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            font-family: var(--font-head);
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            gap: 8px;
+        }
 
-.container { max-width: 1100px; margin: auto; padding: 30px 15px; }
+        .btn-primary {
+            background: var(--gradient);
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+        }
 
-.packages {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
-}
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.6);
+        }
 
-.card {
-  background: #1a1a1a;
-  padding: 25px;
-  border-radius: 15px;
-  text-align: center;
-  border: 1px solid #333;
-  transition: 0.3s;
-  display: flex;
-  flex-direction: column;
-}
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
 
-.card:hover { transform: translateY(-10px); border-color: #00ff99; }
-.card h2 { color: #00ff99; margin-bottom: 15px; }
-.card ul { list-style: none; padding: 0; text-align: left; flex-grow: 1; }
-.card ul li { padding: 8px 0; border-bottom: 1px solid #2a2a2a; font-size: 0.9rem; }
+        .section-title h2 {
+            font-family: var(--font-head);
+            font-size: 3rem;
+            text-transform: uppercase;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
 
-.price-container { margin: 20px 0; }
-.price { color: #ffcc00; font-size: 26px; font-weight: bold; display: block; }
-.per-month { color: #aaa; font-size: 14px; display: block; }
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
 
-.btn {
-  display: inline-block;
-  background: #00ff99;
-  color: #000;
-  padding: 12px;
-  border-radius: 10px;
-  font-weight: bold;
-  text-decoration: none;
-  cursor: pointer;
-  border: none;
-  width: 100%;
-}
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 11, 16, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 15px 0;
+        }
 
-.btn:hover { background: #05d682; }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.info { margin-top: 50px; background: #151515; padding: 30px; border-radius: 15px; border-left: 5px solid #00ff99; }
-.info h3 { color: #00ff99; margin-bottom: 15px; }
-.info ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; list-style: none; padding: 0; }
+        .logo {
+            font-family: var(--font-head);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 999; }
-.modal-content { background: #1e1e1e; padding: 30px; border-radius: 20px; text-align: center; width: 350px; border: 1px solid #333; }
+        .logo span {
+            color: var(--primary);
+        }
 
-footer { text-align: center; padding: 30px; background: #0a0a0a; margin-top: 50px; color: #777; }
-</style>
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* --- HERO SECTION --- */
+        #hero {
+            padding: 160px 0 100px;
+            text-align: center;
+            position: relative;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0,255,136,0.15) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        #hero h1 {
+            font-family: var(--font-head);
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        #hero h1 span {
+            color: var(--primary);
+        }
+
+        #hero p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        /* --- FEATURES --- */
+        #features {
+            padding: 80px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+        }
+
+        /* --- PRICING --- */
+        #pricing {
+            padding: 80px 0 120px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .price-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(5px);
+            border-radius: 20px;
+            padding: 30px 25px;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--accent);
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Popular Badge for mid tiers */
+        .price-card.popular::before {
+            content: 'BEST VALUE';
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--accent);
+            color: #000;
+            padding: 5px 40px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 10px rgba(0,210,255,0.5);
+        }
+
+        .plan-name {
+            font-family: var(--font-head);
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .plan-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 25px;
+        }
+        
+        .plan-price span {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .plan-specs {
+            list-style: none;
+            margin-bottom: 30px;
+            flex-grow: 1; /* Pushes button to bottom */
+        }
+
+        .plan-specs li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #d1d5db;
+            font-size: 0.95rem;
+        }
+
+        .plan-specs li i {
+            color: var(--accent);
+            width: 20px;
+            text-align: center;
+        }
+
+        .btn-card {
+            width: 100%;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-card:hover {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
+
+        .price-card:hover .btn-card {
+            background: var(--gradient);
+            color: #000;
+            border-color: transparent;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #050507;
+            padding: 50px 0 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+        }
+
+        .footer-content h3 {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-content p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .social-links a {
+            color: var(--text-main);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            margin-top: 40px;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        /* Floating WhatsApp */
+        .fab-whatsapp {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+            z-index: 2000;
+            transition: transform 0.3s;
+            text-decoration: none;
+        }
+
+        .fab-whatsapp:hover {
+            transform: scale(1.1);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            #hero h1 {
+                font-size: 2.8rem;
+            }
+            .nav-links {
+                display: none; /* Simple hiding for mobile, ideally would be a hamburger menu */
+            }
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<header>
-  <h1>LANGEO STORE</h1>
-  <p id="tagline">Solusi Hosting Minecraft Performa Tinggi & Anti-DDoS</p>
-  
-  <div class="lang-selector">
-    <select id="langSelect" onchange="changeLanguage()">
-      <option value="id">🇮🇩 Indonesia</option>
-      <option value="en">🇺🇸 English</option>
-      <option value="my">🇲🇾 Malaysia</option>
-    </select>
-  </div>
-</header>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <i class="fa-solid fa-cube"></i> LANGEO<span>STORE</span>
+                </a>
+                <div class="nav-links">
+                    <a href="#hero">Home</a>
+                    <a href="#features">Fitur</a>
+                    <a href="#pricing">Paket</a>
+                    <a href="https://wa.me/6285189826843" target="_blank">Kontak</a>
+                </div>
+            </nav>
+        </div>
+    </header>
 
-<div class="container">
-  <div class="packages">
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container">
+            <span class="hero-badge">Java & Bedrock Edition</span>
+            <h1>Bangun Server Minecraft<br><span>Lega & Anti Lag</span></h1>
+            <p>Hosting server performa tinggi dengan harga terjangkau. Mulai bangun komunitas gamingmu sekarang juga dengan hardware spesifikasi tinggi.</p>
+            <a href="#pricing" class="btn btn-primary">
+                <i class="fa-solid fa-server"></i> Lihat Paket Harga
+            </a>
+        </div>
+    </section>
 
-    <div class="card">
-      <h2 class="p-name">PAKET VIP</h2>
-      <ul>
-        <li>RAM : 4 GB</li>
-        <li>CPU : 200%</li>
-        <li>DISK : 10 GB</li>
-        <li class="stock-banyak">SLOT MASIH BANYAK</li>
-      </ul>
-      <div class="price-container">
-        <span class="price">Rp 10.000</span>
-        <span class="per-month">/ Per Bulan</span>
-      </div>
-      <button class="btn buy-btn" onclick="openModal('VIP','10K')">Beli Sekarang</button>
-    </div>
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Kenapa Kami?</h2>
+                <p>Fasilitas terbaik untuk kelancaran server kamu</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fa-solid fa-microchip feature-icon"></i>
+                    <h3>Performa Tinggi</h3>
+                    <p>Menggunakan CPU berkinerja tinggi untuk memastikan server berjalan mulus tanpa lag meskipun ramai pemain.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-globe feature-icon"></i>
+                    <h3>Java & Bedrock</h3>
+                    <p>Mendukung kedua versi Minecraft. Satu panel kontrol mudah untuk mengatur tipe server sesuai kebutuhan.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-headset feature-icon"></i>
+                    <h3>Support Cepat</h3>
+                    <p>Kendala teknis? Tim kami siap membantu via WhatsApp dengan respon yang cepat dan solutif.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="card">
-      <h2 class="p-name">PAKET MVP</h2>
-      <ul>
-        <li>RAM : 8 GB</li>
-        <li>CPU : 400%</li>
-        <li>DISK : 20 GB</li>
-        <li class="stock-banyak">SLOT MASIH BANYAK</li>
-      </ul>
-      <div class="price-container">
-        <span class="price">Rp 20.000</span>
-        <span class="per-month">/ Per Bulan</span>
-      </div>
-      <button class="btn buy-btn" onclick="openModal('MVP','20K')">Beli Sekarang</button>
-    </div>
+    <!-- Pricing Section -->
+    <section id="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Pilihan Paket</h2>
+                <p>Upgrade sesuai kebutuhan servermu</p>
+            </div>
+            
+            <div class="pricing-grid">
+                
+                <!-- Paket 1 -->
+                <article class="price-card">
+                    <div class="plan-name">Starter</div>
+                    <div class="plan-price">Rp 10.000<span>/bulan</span></div>
+                    <ul class="plan-specs">
+                        <li><i class="fa-solid fa-memory"></i> 4 GB RAM</li>
+                        <li><i class="fa-solid fa-microchip"></i> 200% CPU Power</li>
+                        <li><i class="fa-solid fa-hard-drive"></i> 5 GB NVMe Disk</li>
+                    </ul>
+                    <a href="https://wa.me/6285189826843?text=Halo%20saya%20mau%20beli%20Hosting%20Paket%20Starter%204GB" target="_blank" class="btn btn-card">
+                        <i class="fa-brands fa-whatsapp"></i> Order
+                    </a>
+                </article>
 
-    <div class="card">
-      <h2 class="p-name">PAKET ELITE</h2>
-      <ul>
-        <li>RAM : 12 GB</li>
-        <li>CPU : 600%</li>
-        <li>DISK : 30 GB</li>
-        <li class="stock-banyak">SLOT MASIH BANYAK</li>
-      </ul>
-      <div class="price-container">
-        <span class="price">Rp 30.000</span>
-        <span class="per-month">/ Per Bulan</span>
-      </div>
-      <button class="btn buy-btn" onclick="openModal('ELITE','30K')">Beli Sekarang</button>
-    </div>
+                <!-- Paket 2 -->
+                <article class="price-card">
+                    <div class="plan-name">Basic</div>
+                    <div class="plan-price">Rp 20.000<span>/bulan</span></div>
+                    <ul class="plan-specs">
+                        <li><i class="fa-solid fa-memory"></i> 8 GB RAM</li>
+                        <li><i class="fa-solid fa-microchip"></i> 400% CPU Power</li>
+                        <li><i class="fa-solid fa-hard-drive"></i> 10 GB NVMe Disk</li>
+                    </ul>
+                    <a href="https://wa.me/6285189826843?text=Halo%20saya%20mau%20beli%20Hosting%20Paket%20Basic%208GB" target="_blank" class="btn btn-card">
+                        <i class="fa-brands fa-whatsapp"></i> Order
+                    </a>
+                </article>
 
-    <div class="card">
-      <h2 class="p-name">PAKET MASTER</h2>
-      <ul>
-        <li>RAM : 16 GB</li>
-        <li>CPU : 800%</li>
-        <li>DISK : 40 GB</li>
-        <li class="stock-banyak">SLOT MASIH BANYAK</li>
-      </ul>
-      <div class="price-container">
-        <span class="price">Rp 40.000</span>
-        <span class="per-month">/ Per Bulan</span>
-      </div>
-      <button class="btn buy-btn" onclick="openModal('MASTER','40K')">Beli Sekarang</button>
-    </div>
+                <!-- Paket 3 -->
+                <article class="price-card popular">
+                    <div class="plan-name">Standard</div>
+                    <div class="plan-price">Rp 30.000<span>/bulan</span></div>
+                    <ul class="plan-specs">
+                        <li><i class="fa-solid fa-memory"></i> 12 GB RAM</li>
+                        <li><i class="fa-solid fa-microchip"></i> 600% CPU Power</li>
+                        <li><i class="fa-solid fa-hard-drive"></i> 15 GB NVMe Disk</li>
+                    </ul>
+                    <a href="https://wa.me/6285189826843?text=Halo%20saya%20mau%20beli%20Hosting%20Paket%20Standard%2012GB" target="_blank" class="btn btn-card">
+                        <i class="fa-brands fa-whatsapp"></i> Order
+                    </a>
+                </article>
 
-    <div class="card">
-      <h2 class="p-name">PAKET LEGEND</h2>
-      <ul>
-        <li>RAM : 24 GB</li>
-        <li>CPU : 1000%</li>
-        <li>DISK : 50 GB</li>
-        <li class="stock-terbatas">SLOT TERBATAS</li>
-      </ul>
-      <div class="price-container">
-        <span class="price">Rp 50.000</span>
-        <span class="per-month">/ Per Bulan</span>
-      </div>
-      <button class="btn buy-btn" onclick="openModal('LEGEND','50K')">Beli Sekarang</button>
-    </div>
+                <!-- Paket 4 -->
+                <article class="price-card">
+                    <div class="plan-name">Premium</div>
+                    <div class="plan-price">Rp 40.000<span>/bulan</span></div>
+                    <ul class="plan-specs">
+                        <li><i class="fa-solid fa-memory"></i> 16 GB RAM</li>
+                        <li><i class="fa-solid fa-microchip"></i> 800% CPU Power</li>
+                        <li><i class="fa-solid fa-hard-drive"></i> 20 GB NVMe Disk</li>
+                    </ul>
+                    <a href="https://wa.me/6285189826843?text=Halo%20saya%20mau%20beli%20Hosting%20Paket%20Premium%2016GB" target="_blank" class="btn btn-card">
+                        <i class="fa-brands fa-whatsapp"></i> Order
+                    </a>
+                </article>
 
-    <div class="card">
-      <h2 class="p-name">PAKET MYTHIC</h2>
-      <ul>
-        <li>RAM : 32 GB</li>
-        <li>CPU : 1200%</li>
-        <li>DISK : 60 GB</li>
-        <li class="stock-terbatas">SLOT TERBATAS</li>
-      </ul>
-      <div class="price-container">
-        <span class="price">Rp 60.000</span>
-        <span class="per-month">/ Per Bulan</span>
-      </div>
-      <button class="btn buy-btn" onclick="openModal('MYTHIC','60K')">Beli Sekarang</button>
-    </div>
+                <!-- Paket 5 -->
+                <article class="price-card popular">
+                    <div class="plan-name">Super</div>
+                    <div class="plan-price">Rp 50.000<span>/bulan</span></div>
+                    <ul class="plan-specs">
+                        <li><i class="fa-solid fa-memory"></i> 20 GB RAM</li>
+                        <li><i class="fa-solid fa-microchip"></i> 1000% CPU Power</li>
+                        <li><i class="fa-solid fa-hard-drive"></i> 25 GB NVMe Disk</li>
+                    </ul>
+                    <a href="https://wa.me/6285189826843?text=Halo%20saya%20mau%20beli%20Hosting%20Paket%20Super%2020GB" target="_blank" class="btn btn-card">
+                        <i class="fa-brands fa-whatsapp"></i> Order
+                    </a>
+                </article>
 
-  </div>
+                <!-- Paket 6 -->
+                <article class="price-card">
+                    <div class="plan-name">Ultra</div>
+                    <div class="plan-price">Rp 60.000<span>/bulan</span></div>
+                    <ul class="plan-specs">
+                        <li><i class="fa-solid fa-memory"></i> 24 GB RAM</li>
+                        <li><i class="fa-solid fa-microchip"></i> 1200% CPU Power</li>
+                        <li><i class="fa-solid fa-hard-drive"></i> 30 GB NVMe Disk</li>
+                    </ul>
+                    <a href="https://wa.me/6285189826843?text=Halo%20saya%20mau%20beli%20Hosting%20Paket%20Ultra%2024GB" target="_blank" class="btn btn-card">
+                        <i class="fa-brands fa-whatsapp"></i> Order
+                    </a>
+                </article>
 
-  <div class="info">
-    <h3 id="info-title">MENGAPA MEMILIH KAMI?</h3>
-    <ul id="info-list">
-      </ul>
-  </div>
-</div>
+                <!-- Paket 7 -->
+                <article class="price-card">
+                    <div class="plan-name">Extreme</div>
+                    <div class="plan-price">Rp 70.000<span>/bulan</span></div>
+                    <ul class="plan-specs">
+                        <li><i class="fa-solid fa-memory"></i> 28 GB RAM</li>
+                        <li><i class="fa-solid fa-microchip"></i> 1400% CPU Power</li>
+                        <li><i class="fa-solid fa-hard-drive"></i> 35 GB NVMe Disk</li>
+                    </ul>
+                    <a href="https://wa.me/6285189826843?text=Halo%20saya%20mau%20beli%20Hosting%20Paket%20Extreme%2028GB" target="_blank" class="btn btn-card">
+                        <i class="fa-brands fa-whatsapp"></i> Order
+                    </a>
+                </article>
 
-<footer id="footer-text">
-  © 2026 Langeo Store | Hosting Minecraft Java & Bedrock
-</footer>
+                <!-- Paket 8 -->
+                <article class="price-card">
+                    <div class="plan-name">Godlike</div>
+                    <div class="plan-price">Rp 80.000<span>/bulan</span></div>
+                    <ul class="plan-specs">
+                        <li><i class="fa-solid fa-memory"></i> 32 GB RAM</li>
+                        <li><i class="fa-solid fa-microchip"></i> 1600% CPU Power</li>
+                        <li><i class="fa-solid fa-hard-drive"></i> 40 GB NVMe Disk</li>
+                    </ul>
+                    <a href="https://wa.me/6285189826843?text=Halo%20saya%20mau%20beli%20Hosting%20Paket%20Godlike%2032GB" target="_blank" class="btn btn-card">
+                        <i class="fa-brands fa-whatsapp"></i> Order
+                    </a>
+                </article>
 
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <h3 id="modal-title">Pilih Versi Game</h3>
-    <p id="selectedPaket" style="color: #00ff99; font-weight: bold; margin-bottom: 20px;">Paket: -</p>
-    <a class="btn" id="javaBtn" style="margin-bottom: 10px; display: block;">Minecraft Java</a>
-    <a class="btn" id="bedrockBtn" style="display: block;">Minecraft Bedrock</a>
-    <div class="close" onclick="closeModal()" style="margin-top:15px; cursor:pointer; color:#888" id="back-text">Kembali</div>
-  </div>
-</div>
+            </div>
+        </div>
+    </section>
 
-<script>
-const wa = "6285189826843";
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3><i class="fa-solid fa-cube"></i>LANGEO STORE</h3>
+                <p>Penyedia layanan hosting server Minecraft terbaik, termurah, dan terpercaya di Indonesia.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2026 LANGEO STORE Indonesia. All rights reserved.
+            </div>
+        </div>
+    </footer>
 
-const dictionary = {
-  id: {
-    tagline: "Solusi Hosting Minecraft Performa Tinggi & Anti-DDoS",
-    buy: "Beli Sekarang",
-    perMonth: "/ Per Bulan",
-    stockMany: "SLOT MASIH BANYAK",
-    stockLimit: "SLOT TERBATAS",
-    infoTitle: "MENGAPA MEMILIH KAMI?",
-    infoItems: ["ANTI DDOS PROTECTION", "UPTIME 24 JAM", "SERVER STABIL 98%", "DURASI 1 BULAN", "GARANSI 26 HARI", "REGIONAL SINGAPORE", "FREE IP SUBDOMAIN", "PROSES CEPAT", "MINIMAL MVP UNTUK JAVA", "HOSTING SHARED", "CPU AMD EPYC", "SUPPORT TERBAIK"],
-    modalTitle: "Pilih Versi Game",
-    back: "Kembali",
-    waMsg: "*Mau Beli Hosting Bang*"
-  },
-  en: {
-    tagline: "High-Performance Minecraft Hosting & Anti-DDoS Solutions",
-    buy: "Buy Now",
-    perMonth: "/ Per Month",
-    stockMany: "MANY SLOTS AVAILABLE",
-    stockLimit: "LIMITED SLOTS",
-    infoTitle: "WHY CHOOSE US?",
-    infoItems: ["ANTI DDOS PROTECTION", "24H UPTIME", "STABLE SERVER 98%", "1 MONTH DURATION", "26 DAYS WARRANTY", "SINGAPORE REGION", "FREE IP SUBDOMAIN", "FAST PROCESS", "MINIMUM MVP FOR JAVA", "SHARED HOSTING", "AMD EPYC CPU", "BEST SUPPORT"],
-    modalTitle: "Choose Game Version",
-    back: "Back",
-    waMsg: "*I want to buy hosting*"
-  },
-  my: {
-    tagline: "Penyelesaian Pengehosan Minecraft Berprestasi Tinggi & Anti-DDoS",
-    buy: "Beli Sekarang",
-    perMonth: "/ Sebulan",
-    stockMany: "SLOT MASIH BANYAK",
-    stockLimit: "SLOT TERHAD",
-    infoTitle: "KENAPA PILIH KAMI?",
-    infoItems: ["PERLINDUNGAN ANTI DDOS", "MASA AKTIF 24 JAM", "SERVER STABIL 98%", "TEMPOH 1 BULAN", "WARANTI 26 HARI", "WILAYAH SINGAPURA", "SUBDOMAIN IP PERCUMA", "PROSES CEPAT", "MINIMUM MVP UNTUK JAVA", "PENGEHOSAN KONGSI", "CPU AMD EPYC", "SOKONGAN TERBAIK"],
-    modalTitle: "Pilih Versi Game",
-    back: "Kembali",
-    waMsg: "*Saya nak beli hosting bang*"
-  }
-};
-
-function changeLanguage() {
-  const lang = document.getElementById("langSelect").value;
-  const d = dictionary[lang];
-
-  // Header & Footer
-  document.getElementById("tagline").innerText = d.tagline;
-  document.getElementById("info-title").innerText = d.infoTitle;
-  document.getElementById("modal-title").innerText = d.modalTitle;
-  document.getElementById("back-text").innerText = d.back;
-
-  // Cards
-  document.querySelectorAll(".buy-btn").forEach(btn => btn.innerText = d.buy);
-  document.querySelectorAll(".per-month").forEach(pm => pm.innerText = d.perMonth);
-  document.querySelectorAll(".stock-banyak").forEach(s => s.innerText = d.stockMany);
-  document.querySelectorAll(".stock-terbatas").forEach(s => s.innerText = d.stockLimit);
-
-  // Info List
-  const infoList = document.getElementById("info-list");
-  infoList.innerHTML = "";
-  d.infoItems.forEach(item => {
-    const li = document.createElement("li");
-    li.innerText = "✔ " + item;
-    infoList.appendChild(li);
-  });
-}
-
-function openModal(paket, harga) {
-  const lang = document.getElementById("langSelect").value;
-  const d = dictionary[lang];
-  
-  document.getElementById("modal").style.display = "flex";
-  document.getElementById("selectedPaket").innerText = "Paket: " + paket + " (" + harga + ")";
-  
-  const t = new Date().toLocaleDateString('id-ID');
-  const messageBase = `${d.waMsg}\n\n📌 Paket: ${paket}\n💰 Harga: ${harga} ${d.perMonth}\n📅 Tarikh: ${t}`;
-
-  document.getElementById("javaBtn").href = "https://wa.me/" + wa + "?text=" + encodeURIComponent(messageBase + "\n🎮 Tipe: Minecraft Java");
-  document.getElementById("bedrockBtn").href = "https://wa.me/" + wa + "?text=" + encodeURIComponent(messageBase + "\n🎮 Tipe: Minecraft Bedrock");
-}
-
-function closeModal() { document.getElementById("modal").style.display = "none"; }
-
-window.onclick = function(event) {
-  if (event.target == document.getElementById("modal")) closeModal();
-}
-
-// Jalankan bahasa Indonesia saat pertama kali load
-window.onload = changeLanguage;
-</script>
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/6285189826843" class="fab-whatsapp" target="_blank" title="Hubungi Kami">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
 
 </body>
-</html>
-
+  </html>
